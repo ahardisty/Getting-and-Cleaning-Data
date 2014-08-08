@@ -1,5 +1,5 @@
 #Getting and Cleaning Data - Week 3
-
+#added heading to test Git Hub
 #Subsetting review
 set.seed(13435)
 X <- data.frame("var1"=sample(1:5),"var2"=sample(6:10),"var3"=sample(11:15))
