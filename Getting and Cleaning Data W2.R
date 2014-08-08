@@ -1,6 +1,7 @@
 #Getting and Cleaning Data - Week 2
 #Testing the push
 #testing second push
+#testing third push - through R Studio
 
 install.packages("RMySQL")
 library(RMySQL)
