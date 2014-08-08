@@ -1,4 +1,6 @@
 #Getting and Cleaning Data - Week 2
+#Testing the push
+
 install.packages("RMySQL")
 library(RMySQL)
 #connecting and listing databases
