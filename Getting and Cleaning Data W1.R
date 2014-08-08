@@ -3,6 +3,8 @@
 #here are some more changes. Wonder if it will work
 #I have no idea
 
+#trying again. We will see what's up.
+
 #H 1: How many housing units in this survey were worth more than $1,000,000?
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv" 
