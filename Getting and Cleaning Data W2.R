@@ -2,6 +2,7 @@
 #Testing the push
 #testing second push
 #testing third push - through R Studio
+#trying dev branch through R Studio; sync with GitHub
 
 install.packages("RMySQL")
 library(RMySQL)
