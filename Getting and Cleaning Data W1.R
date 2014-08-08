@@ -1,6 +1,7 @@
 #This is week 1 of getting and cleaning data;
 #I am using it to review GitHub commands.
 #here are some more changes. Wonder if it will work
+#I have no idea
 
 #H 1: How many housing units in this survey were worth more than $1,000,000?
 
