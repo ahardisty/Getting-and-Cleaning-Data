@@ -1,7 +1,24 @@
+library(ggplot2)
+library(GGally)
+library(scales)
+library(memisc)
+library(reshape2)
+library(plyr)
+library(reshape)
+library(gridExtra)
+library(RColorBrewer)
+library(bitops)
+library(RCurl)
+library(xlsx)
+library(XML)
+library(dplyr)
+library(httr)
+
 #Getting and Cleaning Data - Week 2
 #Testing the push
 #testing second push
 #testing third push - through R Studio
+
 
 install.packages("RMySQL")
 library(RMySQL)

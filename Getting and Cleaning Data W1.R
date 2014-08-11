@@ -5,6 +5,80 @@
 #testing third push
 #testing changes again to test cloning fun stuff
 
+#Lecture Notes
+#flat files
+fileUrl <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+download.file(fileUrl, destfile = "../../Data/cameras.csv", method = "curl")
+dateDownloaded <- date()
+
+#read.table
+cameraData <- read.table("../../Data/cameras.csv") #will not work
+cameraData <- read.table("../../Data/cameras.csv", sep = ",", header = TRUE)
+head(cameraData)
+
+#read.csv
+cameraData2 <-read.csv("../../Data/cameras.csv")
+head(cameraData2)
+
+#reading excel files
+library(xlsx)
+fileUrl2 <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.xlsx?accessType=DOWNLOAD"
+download.file(fileUrl2, destfile = "../../Data/cameras.xlsx", method = "curl")
+dateDownloaded2 <- date()
+cameraData3 <- read.xlsx("../../Data/cameras.xlsx",sheetIndex=1,header=TRUE)
+colIndex <- 2:3
+rowIndex <- 1:4
+cameraDataSubset <- read.xlsx("../../Data/cameras.xlsx",sheetIndex=1, colIndex=colIndex,rowIndex=rowIndex)
+cameraDataSubset
+
+#reading XML
+library(XML)
+fileUrl3 <- "http://www.w3schools.com/xml/simple.xml"
+doc <- xmlTreeParse(fileUrl3,useInternal=TRUE)
+rootNode <- xmlRoot(doc)
+xmlName(rootNode)
+names(rootNode)
+?xmlName
+?xmlRoot
+
+rootNode[[1]]
+rootNode[[2]]
+rootNode[[1]][[1]]
+
+#xmlSApply
+xmlSApply(rootNode,xmlValue)
+xpathSApply(rootNode,"//name",xmlValue)
+xpathSApply(rootNode,"//name",xmlValue)[3]
+xpathSApply(rootNode,"//price",xmlValue)[1]
+
+
+#Baltimore Ravens - html parse
+fileUrl4 <- "http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens"
+doc4 <- htmlTreeParse(fileUrl4,useInternal=TRUE) #html tree parse; useInternal = all content
+scores <- xpathSApply(doc4,"//li[@class='score']",xmlValue) #list items; class = score
+teams <- xpathSApply(doc4,"//li[@class='team-name']",xmlValue) # list items; class = team
+rootNode4 <-xmlRoot(doc4)
+xmlName(rootNode4)
+names(rootNode4)
+rootNode4[[2]][[2]]
+scores
+teams
+
+
+#Reading JSON
+
+library(jsonlite)
+jsonData <- fromJSON("https://api.github.com/users/jtleek/repos")
+names(jsonData)
+names(jsonData$owner)
+jsonData$owner$id
+jsonData$owner$login
+jsonData$name
+
+myjson <- toJSON(iris, pretty=TRUE)
+cat(myjson)
+
+
 #trying again. We will see what's up.
 
 #H 1: How many housing units in this survey were worth more than $1,000,000?
