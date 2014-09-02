@@ -78,10 +78,9 @@ xpathSApply(html, "//td[@id='col-citedby']", xmlValue)
 
 #GET from the httr package
 install.packages("httr")
-library(httr); html2 = GET(url)
-html2 <- GET(con)
+html2 <- GET(url)
 content2 = content(html2,as="text")
-parsedHtml = htmlParse(content2, asText=TRUE)
+parsedHtml = htmlParse(file = content2, asText=TRUE)
 xpathSApply(parsedHtml,"//title", xmlValue)
 
 
@@ -89,20 +88,43 @@ xpathSApply(parsedHtml,"//title", xmlValue)
 pg1 <- GET("http://httpbin.org/basic-auth/user/passwd")
 pg1
 
-pg2 <- GET("http://httpbin.org/basic-auth/user/passwd",
-authenticate("user","passwd"))
+pg2 <- GET("http://httpbin.org/basic-auth/user/passwd", authenticate("user","passwd"))
 pg2
-
 names(pg2)
+
+pg3 <- GET("https://clicky.com/stats/export?site_id=100745457", authenticate("ihq@kp.orgr","img2014"))
+clickyURL <-"https://clicky.com/stats/export?site_id=100745457&type=visitors-unique&date_export=2014&daily=1&output=csv"
+download.file(clickyURL,"../clickyVisitors.csv", method ="curl")
+download.file(clickyURL,"asdf)
+getwd()
+
+download.file(clickyVisitorsURL,"../clickyVistors.csv", method="curl")
+pg3 <- GET("https://clicky.com/stats/export?site_id=100745457")
+pg3
+names(pg3)
 
 #Using handles
 #allows for authentication across multiple authentications
 #RBloggers - web scrapping
 
 ##Reading from APIs
-myapp = oauth_app("athtweets", key="ONoMBXDFOcWjFM4Gu0tbJSOaA", secret="NZsRdvZmgJAO1bnz8e2DVRkPMkl0z6goJVHCyS20eA8sH74Fck")
-sig = sign_oauth1.0(myapp, token=)
+install.packages("twitteR")
+library(twitteR)
+library(jsonlite)
 
+tweets <- searchTwitter("#rstats",n=50)
+
+myapp = oauth_app("athtweets", key="kfdiasTdf2otAhNIpROZ6SxSa", secret="JPO3yXeimdqhXDsIDpBMJYZhQo9Y2IFbWv4cYuKD2rQ2GtmGst")
+sig = sign_oauth1.0(myapp, token= "24193168-oCRShwWAHeoJmVFnmfTbVcHMXanHMsAwdMtkIY8yV", token_secret ="mVSBoF6LmQwzpNbu12HLPNRNvNH19IRVDxohHnP3ZMq5C" )
+homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
+json1 = content(homeTL)
+json1[1,]
+dim(json1)
+summary(json1)
+json2<- jsonlite::fromJSON(json1)
+json2 <- jsonlite::fromJSON(toJSON(json1))
+jsonlite::fromJSON(toJSON(json1))
+json2
 
 #Week 2 Quiz
 
@@ -125,8 +147,8 @@ req
 json1 <- content(req)
 json2 <- jsonlite::fromJSON(toJSON(json1))
 names(json2)
+json2
 json2$
-json2$created_at[1]
 
 jsonData <- fromJSON("https://api.github.com/users/jtleek/repos")
 jsonData$id
