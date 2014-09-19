@@ -245,28 +245,27 @@ EDU <- read.csv("../../Data/edu.csv",header = TRUE)
 #GDP <- GDP[1:190,]
 GDP <- select(GDP, c(1:2,4:5) )
 colnames(GDP) <- c("shortcode","rank","countryNames","gdpMM")
-GDP$rank <- as.integer(as.numeric(GDP$rank))
+GDP$rank <- as.numeric(GDP$rank)
 GDP$gdpMM <-as.numeric(GDP$gdpMM)
 class(GDP$gdpMM)
-
-GDP <- GDP [ which(GDP$rank <=190) ,] #works; used
-GDP <- filter(GDP,rank <=190) #works
-#(GDP$rank <=190) #works
-
+class(GDP$rank)
 
 mergedData <- merge(GDP, EDU, by.x = "shortcode", by.y = "CountryCode", all=TRUE)
 
-#ordering with dplyr
-arrange(X,var1)
-arrange(X,desc(var1))
-filter(X, var1 <= 5, var2 >=1)
+GDP2 <- mergedData %>%
+  filter(rank <=190) %>%
+  arrange(desc(rank))
+head(mergedData)
 
-summary(mergedData)
-dim(mergedData)
-mergedData
-merged2 <- arrange(mergedData,desc(rank))
-head(merged2)
-mergedData <- select(mergedData,1:6)
+filter(GDP, shortcode == "KNA")
+
+GDP2 [13,1:3]
+
+head(GDP)
+
+x <- c(1, 1, 2, 2, 2)
+row_number(x = x)
+?row_number
 
 
 #ordering by a variable: 
@@ -280,18 +279,21 @@ merged2
 #4
 #What is the average GDP ranking for the "High income: OECD" and "High income: nonOECD" group?
 
-merged2 %.%
+mergedData %.%
   group_by(Income.Group)%.%
   summarise(meanRank = mean(rank, na.rm = TRUE))
+
+names(mergedData)
 
 #5
 #Cut the GDP ranking into 5 separate quantile groups. Make a table versus Income.Group. 
 #How many countries are Lower middle income but among the 38 nations with highest GDP?
 
 restData$zipGroups = cut(restData$zipCode,breaks=quantile(restData$zipCode))
-merged2$gdpQuartile <- cut(merged2$rank, breaks=quantile(merged2$rank,probs = seq(0,1,0.2),na.rm = TRUE))
-summary(merged2$gdpQuartile)
-table(merged2$gdpQuartile2,merged2$Income.Group)
+GDP2$gdpQuartile <- cut(GDP2$rank, breaks=quantile(GDP2$rank,probs = seq(0,1,0.2),na.rm = TRUE))
+summary(GDP2$gdpQuartile)
+table(GDP2$gdpQuartile,GDP2$Income.Group)
+
 table(merged2$gdpQuartile,merged2$Income.Group)
 merged2$gdpQuartile2 <- cut2(merged2$rank, g=5)
 merged2$gdpQuartile2

@@ -5,6 +5,8 @@
 #testing third push
 #testing changes again to test cloning fun stuff
 
+#Here are some changes I made to test the GitHub push
+
 #Lecture Notes
 #flat files
 fileUrl <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
@@ -84,30 +86,33 @@ cat(myjson)
 #H 1: How many housing units in this survey were worth more than $1,000,000?
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv" 
-download.file(fileURL,destfile="./Data/ACS.csv", method = "curl")
-list.files("./Data")
-getwd()
+download.file(fileURL,destfile="../../Data/ACS.csv", method = "curl")
+list.files("../../Data")
 dateDownLoaded <- date()
 dateDownLoaded
-Q1 <- read.csv("./Data/ACS.csv")
+Q1 <- read.csv("../../Data/ACS.csv")
 head(Q1)
 
-setwd("../")
+Q1 %>%
+  group_by(VAL) %>%
+  summarize(count = n()
+  )
 
-names(Q1)
-summary(Q1$VAL)
-
-Q1Data <- table(Q1$VAL) #table by housing values
-Q1Data
+Q1 %>%
+  group_by(VAL)%>%
+  summarise(valCount =n ())%>%
+  filter(VAL == 24)
+  
 
 # 2 Use the data you loaded from Question 1. Consider the variable FES in the code book. 
 # Which of the "tidy data" principles does this variable violate?
+
 
 # 3 Download the Excel spreadsheet on Natural Gas Aquisition Program here: 
 # Read rows 18-23 and columns 7-15 into R and assign the result to a variable called: dat
 # sum(dat$Zip*dat$Ext,na.rm=T) 
 fileURL3 <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx"
-download.file(fileURL3, destfile="./Data/NBAP.xlsx",method="curl")
+download.file(fileURL3, destfile="../../Data/NBAP.xlsx",method="curl")
 dateDownloaded <- date()
 install.packages("xlsx")
 library(xlsx)
@@ -115,13 +120,13 @@ library(xlsx)
 colIndex <- 7:15
 rowIndex <- 18:23
 
-dat <- read.xlsx("./Data/NBAP.xlsx", sheetIndex=1, colIndex=colIndex, rowIndex=rowIndex)
+dat <- read.xlsx("../../Data/NBAP.xlsx", sheetIndex=1, colIndex=colIndex, rowIndex=rowIndex)
 
 head(dat)
 names(dat)
 sum(dat$Zip*dat$Ext,na.rm=T)
 
-
+#4
 #Read the XML data on Baltimore restaurants from here: 
 #How many restaurants have zipcode 21231?
 
@@ -137,15 +142,18 @@ xmlSApply(rootNode,xmlValue)
 xpathSApply(rootNode,"//name",xmlValue)
 zip <- xpathSApply(rootNode,"//zipcode",xmlValue)
 class(zip)
-table(zip)
-table(zip2)
-zip
-zip2 <- zip [zip == 21231]
-str(zip2)
-nrow(zip2)
-class(zip2)
-summary(zip2)
-nrow(zip)
+zip <- data.frame(zip)
+
+names(zip)
+
+dim(filter(zip, zip == 21231)) this works
+
+#try dplyr
+Q4 <- zip %>%
+  group_by(zip)%>%
+  summarise(count = n())%>%
+  filter(zip == 21231)
+
 
 
 fileUrlTest <- "http://www.w3schools.com/xml/simple.xml"
